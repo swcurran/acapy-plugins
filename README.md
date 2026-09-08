@@ -186,6 +186,36 @@ For the plugin to be accepted into this repo it must have adequate testing.
   everything you need to start integration testing and a sample test will be
   provided.
 
+### Testing an ACA-Py Release Candidate
+
+Before a new ACA-Py version is released, it's useful to run the plugins'
+integration tests against the release candidate to catch problems early. The
+`test-acapy-version.sh` script is intended to be run locally to automate this:
+it temporarily pins every plugin's `acapy-agent` dependency to a given version,
+regenerates the affected `poetry.lock` files, runs each plugin's integration
+test suite against it, and then reverts the `pyproject.toml`/`poetry.lock`
+changes — whether the run succeeds or fails.
+
+```
+./test-acapy-version.sh <acapy-agent-version> [plugin ...]
+```
+
+For example, to test a release candidate against every plugin:
+
+```
+./test-acapy-version.sh 1.7.0rc0
+```
+
+Or against a subset of plugins:
+
+```
+./test-acapy-version.sh 1.7.0rc0 basicmessage_storage webvh
+```
+
+The script requires `poetry` and `docker` (with the `compose` plugin) and
+should be run from the repo root. It prints a pass/fail/skip summary for each
+plugin when it finishes.
+
 ## Deploy
 
 For production use, plugins should be installed as libraries to an ACA-Py image.
