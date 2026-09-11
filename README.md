@@ -148,8 +148,9 @@ to depend on it. This is currently a manual process. The steps of the process ar
    version references to the new release.
 6. Commit the changes and push the branch to your fork, and open a PR.
 
-Then open the PR (don't include the version bump in any other PR) and let CI
-run the full integration suite against it.
+Then open the PR (e.g. "Plugins Release PR for ACA-Py 1.7.0") and let CI
+run the full integration suite against it. I was able to provide steps 1-5
+as instructions to Claude Code and have the changes generated cleanly.
 
 Once the PR is merged, a "Release PR" GitHub Action will run to update the
 `plugin_globals` directory with the new plugin versions and create a new release
